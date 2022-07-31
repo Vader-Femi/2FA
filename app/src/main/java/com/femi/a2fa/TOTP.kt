@@ -51,11 +51,16 @@ object TOTP {
         val binary: Int =
             hash[offset] and 0x7f shl 24 or (hash[offset + 1] and 0xff shl 16) or (hash[offset + 2] and 0xff shl 8) or (hash[offset + 3] and 0xff)
         val otp = binary % 1000000
-        var result = Integer.toString(otp)
+        var result = otp.toString()
         while (result.length < 6) {
             result = "0$result"
         }
         return result
+    }
+
+    fun getTimeRemaining(): Long {
+//        (current_time / time_block) - (totp_now_time / time_block)
+        return (30 - (System.currentTimeMillis() / 1000 ) % 30)
     }
 
     /**

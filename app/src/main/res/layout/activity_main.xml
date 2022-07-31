@@ -19,6 +19,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/remainingTimeBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        app:indicatorSize="200dp"
+        app:trackColor="@android:color/darker_gray"
+        app:indicatorColor="@android:color/holo_purple"
+        android:indeterminate="false"/>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/secretKey"
         android:layout_width="wrap_content"
