@@ -24,6 +24,7 @@ import java.security.SecureRandom
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val progress = MutableLiveData(-1)
 
 //    https://medium.com/@ihorsokolyk/two-factor-authentication-with-java-and-google-authenticator-9d7ea15ffee6
 //    https://github.com/taimos/totp/blob/master/src/main/java/de/taimos/totp/TOTP.java
@@ -41,10 +42,13 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             while (true) {
-                delay(1000)
-                binding.remainingTimeBar.progress = (((30 - TOTP.getTimeRemaining()) * 3.33).toInt())
-                getTOTPCode()
+                progress.value = (((30 - TOTP.getTimeRemaining()) * 3.33).toInt())
+                delay(100)
             }
+        }
+
+        progress.observe(this){
+            binding.remainingTimeBar.progress = it
         }
 
         binding.secretKey.setOnClickListener {
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun newKey(){
+    private fun newKey() {
         generateSecretKey()
         getTOTPCode()
     }
