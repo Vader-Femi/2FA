@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/allSavedOTPFragment">
+
+    <fragment
+        android:id="@+id/allSavedOTPFragment"
+        android:name="com.femi.a2fa.ui.AllSavedOTPFragment"
+        android:label="@string/accounts"
+        tools:layout="@layout/fragment_all_saved_o_t_p" >
+        <action
+            android:id="@+id/action_accountsFragment_to_OTPFragment"
+            app:destination="@id/OTPFragment" />
+        <action
+            android:id="@+id/action_accountsFragment_to_addAccountFragment"
+            app:destination="@id/addAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/OTPFragment"
+        android:name="com.femi.a2fa.ui.OTPFragment"
+        android:label="@string/one_time_password"
+        tools:layout="@layout/fragment_o_t_p" >
+        <argument
+            android:name="secretKey"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAccountFragment"
+        android:name="com.femi.a2fa.ui.AddAccountFragment"
+        android:label="fragment_add_account"
+        tools:layout="@layout/fragment_add_account" />
+</navigation>
