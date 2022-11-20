@@ -29,6 +29,6 @@
     <fragment
         android:id="@+id/addAccountFragment"
         android:name="com.femi.a2fa.ui.AddAccountFragment"
-        android:label="fragment_add_account"
+        android:label="@string/add_account"
         tools:layout="@layout/fragment_add_account" />
 </navigation>

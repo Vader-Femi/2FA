@@ -35,8 +35,29 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentsWrapper) as NavHostFragment
+        val navController = navHostFragment.navController
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(
+                R.id.allSavedOTPFragment),
+            fallbackOnNavigateUpListener = ::onSupportNavigateUp
+        )
+        NavigationUI.setupWithNavController(
+            binding.toolbar,
+            navController,
+            appBarConfiguration
+        )
+
         setupViewModel(this)
 
+        firstTimeUser()
+
+
+    }
+
+    private fun firstTimeUser() {
         lifecycleScope.launch {
             if (viewModel.firstTimeUser()) {
 
