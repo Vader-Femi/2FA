@@ -22,9 +22,6 @@
         android:name="com.femi.a2fa.ui.OTPFragment"
         android:label="@string/one_time_password"
         tools:layout="@layout/fragment_o_t_p" >
-        <argument
-            android:name="secretKey"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addAccountFragment"

@@ -7,9 +7,12 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.femi.a2fa.database.OTPDataDatabase
 import com.femi.a2fa.database.entity.OTPData
 import com.femi.a2fa.databinding.ActivityMainBinding
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: OTPDataViewModel
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
 //    https://medium.com/@ihorsokolyk/two-factor-authentication-with-java-and-google-authenticator-9d7ea15ffee6
 //    https://github.com/taimos/totp/blob/master/src/main/java/de/taimos/totp/TOTP.java
@@ -39,16 +43,8 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentsWrapper) as NavHostFragment
         val navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(
-                R.id.allSavedOTPFragment),
-            fallbackOnNavigateUpListener = ::onSupportNavigateUp
-        )
-        NavigationUI.setupWithNavController(
-            binding.toolbar,
-            navController,
-            appBarConfiguration
-        )
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         setupViewModel(this)
 
@@ -91,6 +87,12 @@ class MainActivity : AppCompatActivity() {
         random.nextBytes(bytes)
         val base32 = Base32()
         return base32.encodeToString(bytes)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.fragmentsWrapper)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 
 }
