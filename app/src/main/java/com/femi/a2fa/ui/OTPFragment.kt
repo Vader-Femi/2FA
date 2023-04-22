@@ -102,7 +102,7 @@ class OTPFragment : Fragment() {
         }
     }
 
-    private fun getProgress() = lifecycleScope.launch {
+    private fun getProgress() = viewLifecycleOwner.lifecycleScope.launch {
         while (isActive) {
             progress.value = (((30 - TOTP.getTimeRemaining()) * 3.33).roundToInt())
             delay(1000)
